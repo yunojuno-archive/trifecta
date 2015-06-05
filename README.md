@@ -34,3 +34,7 @@ The background to this project can be found on the YunoJuno tech blog in the fol
 * [Vagrant as the base OS](http://tech.yunojuno.com/vagrant-as-the-base-os)
 * [Docker services](http://tech.yunojuno.com/trifecta-part-2-docker)
 * Virtualenv (not yet published)
+
+## TODO
+
+Add a sample Django project to prove that it really works.
