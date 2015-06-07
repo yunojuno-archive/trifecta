@@ -1,0 +1,25 @@
+<html>
+    <body>
+        <p>Congratulations, you have set up the <strong>trifecta</strong> demo project.</p>
+        <p>To confirm that all the docker containers are running,
+        run the Django tests: <pre>$ foreman run python manage.py test</pre></p>
+        <p>If the tests all pass, then you have set up <strong>trifecta</strong> successfully:</p>
+        <pre>
+========================================================
+Ubuntu 14.04 ........... localhost .......... Vagrant
+|
++- nginx ............... localhost:80 ....... Docker
+   |
+   >- demo_project ..... localhost:8000 ..... Virtualenv << you are here
+      |
+      >- postgres ...... localhost:5432 ..... Docker
+      |
+      >- redis ......... localhost:6379 ..... Docker
+      |
+      >- memcached ..... localhost:11211 .... Docker
+      |
+      >- elasticsearch . localhost:9200 ..... Docker
+========================================================
+        </pre>
+    </body>
+</html>

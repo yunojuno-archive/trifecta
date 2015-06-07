@@ -12,6 +12,8 @@ and elasticsearch.)
 import os
 import urlparse
 
+DEBUG = True
+
 # required by Django
 SECRET_KEY = 'trifecta'
 
@@ -22,6 +24,22 @@ INSTALLED_APPS = (
     'django.contrib.contenttypes',
     'test_app'
 )
+
+MIDDLEWARE_CLASSES = ()
+
+ROOT_URLCONF = 'test_app.urls'
+
+TEMPLATES = [
+    {
+        'BACKEND': 'django.template.backends.django.DjangoTemplates',
+        'OPTIONS': {
+            'loaders': (
+                'django.template.loaders.filesystem.Loader',
+                'django.template.loaders.app_directories.Loader'
+            ),
+        },
+    },
+]
 
 # ================ trifecta services =========================
 #
@@ -34,7 +52,7 @@ url = urlparse.urlparse(os.environ['DATABASE_URL'])
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': url.path,
+        'NAME': url.path[1:],
         'USER': url.username,
         'PASSWORD': url.password,
         'HOST': url.hostname,

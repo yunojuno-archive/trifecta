@@ -28,7 +28,7 @@ nginx:
   volumes:
   - /vagrant/etc/nginx/sites:/etc/nginx/conf.d
   - /vagrant/etc/nginx/certs:/etc/nginx/certs
-  - /path/to/app:/app
+  - /vagrant/demo_project:/app
   # HACK: allows the container to share the host networking stack,
   # so we can reference the app as localhost.
   net: host

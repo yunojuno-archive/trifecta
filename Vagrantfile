@@ -25,7 +25,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # the path on the host to the actual folder. The second argument is
   # the path on the guest to mount the folder. And the optional third
   # argument is a set of non-required options.
-  config.vm.synced_folder "/path/to/app", "/app"
+  # config.vm.synced_folder "/path/to/app", "/app"
 
   config.vm.provision :shell, privileged:false, :path => "provision/provision.sh"
 
