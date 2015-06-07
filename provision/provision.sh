@@ -1,4 +1,4 @@
-#!/bin/bash
+ #!/bin/bash
 # ------------------------------------------------
 # Vagrant provisioning script used to create a new
 # box from ubuntu/trusty64 box.
@@ -29,6 +29,8 @@ sudo apt-get install -y \
     libreadline6-dev \
     libsqlite3-dev \
     libssl-dev \
+    mercurial \
+    python-dev \
     tk8.5-dev \
     zlib1g-dev \
 
@@ -46,19 +48,14 @@ echo "-> Updating /usr/bin symlink"
 sudo rm -f /usr/bin/python
 sudo ln -s /usr/local/bin/python /usr/bin/python
 
-echo "-> Installing python-dev and mercurial"
-sudo apt-get install python-dev mercurial -y
-# Because: http://stackoverflow.com/a/12780859/45698
-echo "-> Installing easy_install and mercurial"
-wget https://bitbucket.org/pypa/setuptools/raw/bootstrap/ez_setup.py
-sudo python ez_setup.py
-sudo easy_install -U mercurial
 echo "-> Installing pip"
 wget https://bootstrap.pypa.io/get-pip.py
 sudo python get-pip.py
 
 echo "-> Installing virtualenv and virtualenvwrapper"
-sudo pip install virtualenv virtualenvwrapper
+sudo -H pip install virtualenv virtualenvwrapper mercurial
+# can cause problems with virtualenv if owned by root
+sudo chown -R vagrant:vagrant /home/vagrant/.cache/pip
 echo "export WORKON_HOME=$HOME/.virtualenvs" >> ~/.bashrc
 echo "source /usr/local/bin/virtualenvwrapper.sh" >> ~/.bashrc
 source ~/.bashrc
