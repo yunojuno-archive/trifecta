@@ -1,4 +1,4 @@
- #!/bin/bash
+#!/bin/bash
 # ------------------------------------------------
 # Vagrant provisioning script used to create a new
 # box from ubuntu/trusty64 box.
@@ -44,21 +44,23 @@ echo "-> Building Python from source"
 ./configure;
 make;
 sudo make install;
-echo "-> Updating /usr/bin symlink"
-sudo rm -f /usr/bin/python
-sudo ln -s /usr/local/bin/python /usr/bin/python
 
 echo "-> Installing pip"
 wget https://bootstrap.pypa.io/get-pip.py
-sudo python get-pip.py
+python get-pip.py --user
+# set PATH so it includes user's .local bin if it exists
+echo "
+if [ -d \"\$HOME/.local/bin\" ] ; then
+    PATH=\"\$HOME/.local/bin:\$PATH\"
+fi
+" >> $HOME/.profile
+source ~/.profile
 
 echo "-> Installing virtualenv and virtualenvwrapper"
-sudo -H pip install virtualenv virtualenvwrapper mercurial
-# can cause problems with virtualenv if owned by root
-sudo chown -R vagrant:vagrant /home/vagrant/.cache/pip
-echo "export WORKON_HOME=$HOME/.virtualenvs" >> ~/.bashrc
-echo "source /usr/local/bin/virtualenvwrapper.sh" >> ~/.bashrc
-source ~/.bashrc
+pip install --user virtualenv virtualenvwrapper mercurial
+echo "export WORKON_HOME=\$HOME/.virtualenvs" >> $HOME/.profile
+echo "source \$HOME/.local/bin/virtualenvwrapper.sh" >> $HOME/.profile
+source ~/.profile
 
 echo "-> Installing Heroku toolbelt (inc. foreman)"
 sudo wget -qO- https://toolbelt.heroku.com/install-ubuntu.sh | sh
@@ -69,7 +71,7 @@ echo "-> Adding user to docker group"
 sudo usermod -aG docker vagrant
 
 echo "-> Installing docker-compose"
-sudo pip install docker-compose
+pip install --user docker-compose
 
 echo """
 # ======================================================================
