@@ -30,11 +30,9 @@ Ubuntu 14.04 ........... localhost .......... Vagrant
 
 The background to this project can be found on the YunoJuno tech blog in the following articles:
 
-* [Vagrant, Docker, Virtualenv - the dev trifecta](http://tech.yunojuno.com/heroku-in-a-box)
-* [Vagrant as the base OS](http://tech.yunojuno.com/vagrant-as-the-base-os)
-* [Docker services](http://tech.yunojuno.com/trifecta-part-2-docker)
-* Virtualenv (not yet published)
+* [Vagrant, Docker, Virtualenv - the dev trifecta](http://bit.ly/1cvcHwT)
+* [Vagrant as the base OS](http://bit.ly/1cvcLwn)
+* [Docker services](http://bit.ly/1RLvOm1)
+* [Virtualenv](http://bit.ly/1TpBsfu) (not yet published)
 
-## TODO
-
-Add a sample Django project to prove that it really works.
+The output of this project is available as a Vagrant box on the Atlas repo as [yunojuno/trifecta](http://bit.ly/1H2KifK)
