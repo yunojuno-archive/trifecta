@@ -24,9 +24,7 @@ Ubuntu 14.04 ........... localhost .......... Vagrant
       |
       +- elasticsearch . localhost:9200 ..... Docker
 ========================================================
-
 ```
-
 
 The background to this project can be found on the YunoJuno tech blog in the following articles:
 

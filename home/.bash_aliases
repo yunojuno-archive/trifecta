@@ -1,0 +1,1 @@
+alias forage="foreman run python manage.py"
