@@ -33,6 +33,7 @@ sudo apt-get install -y \
     python-dev \
     tk8.5-dev \
     zlib1g-dev \
+    vim
 
 echo "-> Downloading source files for Python 2.7.9"
 cd /tmp;
