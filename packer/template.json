@@ -1,7 +1,7 @@
 {
     "variables": {
         "version": "0.0.1",
-        "atlas_artifact": "hugorodgerbrown/trifecta",
+        "atlas_artifact": "yunojuno/trifecta",
         "atlas_token": "{{ env `ATLAS_TOKEN`}}",
         "cleanup_pause": "",
         "headless": "",
@@ -43,9 +43,9 @@
             "<enter>"
         ],
         "shutdown_command": "echo 'vagrant'|sudo -S shutdown -P now",
-        "disk_size": 20480,
+        "disk_size": 10000,
         "vboxmanage": [
-            ["modifyvm", "{{.Name}}", "--memory", "4096"],
+            ["modifyvm", "{{.Name}}", "--memory", "1024"],
             ["modifyvm", "{{.Name}}", "--cpus", "1"]
         ]
     }],
@@ -85,7 +85,7 @@
             "type": "atlas",
             "token": "{{user `atlas_token`}}",
             "artifact": "{{user `atlas_artifact`}}",
-            "artifact_type": "virtualbox.box",
+            "artifact_type": "vagrant.box",
             "metadata": {
                 "created_at": "{{timestamp}}",
                 "provider": "virtualbox",
