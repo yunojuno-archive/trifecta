@@ -1,1 +1,1 @@
-alias forage="foreman run python manage.py"
+alias forage="heroku local:run python manage.py"
