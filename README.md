@@ -34,3 +34,9 @@ The background to this project can be found on the YunoJuno tech blog in the fol
 * [Virtualenv](http://bit.ly/1TpBsfu) (not yet published)
 
 The output of this project is available as a Vagrant box on the Atlas repo as [yunojuno/trifecta](http://bit.ly/1H2KifK)
+
+---
+
+**Update** (15-Jan-2016)
+
+This project now includes a [Packer](https://www.packer.io/intro/) template, which is connected to the Atlas directory, so that the [yunojuno/trifecta](http://bit.ly/1H2KifK) Vagrant box is built automatically from the ground up. It took a bit of experimentation to get it working, so feel free to use this as a template for your own templates.
