@@ -6,8 +6,8 @@
         "cleanup_pause": "",
         "headless": "",
         "update": "false",
-        "ssh_username": "vagrant",
-        "ssh_password": "vagrant",
+        "ssh_username": "{{ env `SSH_USERNAME`}}",
+        "ssh_password": "{{ env `SSH_PASSWORD`}}",
         "install_vagrant_key": "true",
         "custom_script": "."
     },
