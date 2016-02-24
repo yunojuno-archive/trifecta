@@ -24,7 +24,7 @@
         "headless": "{{ user `headless` }}",
         "ssh_username": "{{ user `ssh_username` }}",
         "ssh_password": "{{ user `ssh_password` }}",
-        "ssh_wait_timeout": "10000s",
+        "ssh_wait_timeout": "10s",
         "boot_command": [
             "<esc><esc><enter><wait>",
             "/install/vmlinuz ",
