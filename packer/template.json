@@ -1,6 +1,6 @@
 {
     "variables": {
-        "version": "0.0.1",
+        "version": "0.1.0",
         "atlas_artifact": "yunojuno/trifecta",
         "atlas_token": "{{ env `ATLAS_TOKEN`}}",
         "cleanup_pause": "",
@@ -89,7 +89,7 @@
             "metadata": {
                 "created_at": "{{timestamp}}",
                 "provider": "virtualbox",
-                "version": "0.2"
+                "version": "0.3"
             }
         }]
     ],
