@@ -1,103 +1,99 @@
 {
-    "variables": {
-        "version": "0.1.0",
-        "atlas_artifact": "yunojuno/trifecta",
-        "atlas_token": "{{ env `ATLAS_TOKEN`}}",
-        "cleanup_pause": "",
-        "headless": "",
-        "update": "false",
-        "ssh_username": "{{ env `SSH_USERNAME`}}",
-        "ssh_password": "{{ env `SSH_PASSWORD`}}",
-        "install_vagrant_key": "true",
-        "custom_script": "."
-    },
-    "builders": [{
-        "vm_name": "ubuntu1404",
-        "type": "virtualbox-iso",
-        "http_directory": "http",
-        "iso_url": "http://releases.ubuntu.com/trusty/ubuntu-14.04.4-server-amd64.iso",
-        "iso_checksum": "3ffb7a3690ce9a07ac4a4d1b829f990681f7e47d",
-        "iso_checksum_type": "sha1",
-        "guest_os_type": "Ubuntu_64",
-        "guest_additions_path": "VBoxGuestAdditions_{{.Version}}.iso",
-        "virtualbox_version_file": ".vbox_version",
-        "headless": "{{ user `headless` }}",
-        "ssh_username": "{{ user `ssh_username` }}",
-        "ssh_password": "{{ user `ssh_password` }}",
-        "ssh_wait_timeout": "1000s",
-        "boot_command": [
-            "<esc><esc><enter><wait>",
-            "/install/vmlinuz ",
-            "noapic ",
-            "preseed/url=http://{{ .HTTPIP }}:{{ .HTTPPort }}/preseed.cfg auto ",
-            "locale=en_US ",
-            "kbd-chooser/method=us ",
-            "keyboard-configuration/modelcode=pc105 ",
-            "keyboard-configuration/layout=US ",
-            "keyboard-configuration/variant=US ",
-            "hostname={{ .Name }} ",
-            "fb=false ",
-            "debconf/frontend=noninteractive ",
-            "console-setup/ask_detect=false ",
-            "initrd=/install/initrd.gz -- ",
-            "<enter>"
+  "builders": [
+    {
+      "boot_command": [
+        "<esc><esc><enter><wait>",
+        "/install/vmlinuz ",
+        "noapic ",
+        "preseed/url=http://{{ .HTTPIP }}:{{ .HTTPPort }}/preseed.cfg auto ",
+        "locale=en_US ",
+        "kbd-chooser/method=us ",
+        "keyboard-configuration/modelcode=pc105 ",
+        "keyboard-configuration/layout=US ",
+        "keyboard-configuration/variant=US ",
+        "hostname={{ .Name }} ",
+        "fb=false ",
+        "debconf/frontend=noninteractive ",
+        "console-setup/ask_detect=false ",
+        "initrd=/install/initrd.gz -- ",
+        "<enter>"
+      ],
+      "disk_size": 20000,
+      "guest_additions_path": "VBoxGuestAdditions_{{ .Version }}.iso",
+      "guest_os_type": "Ubuntu_64",
+      "headless": "{{ user `headless` }}",
+      "http_directory": "http",
+      "iso_checksum": "3ffb7a3690ce9a07ac4a4d1b829f990681f7e47d",
+      "iso_checksum_type": "sha1",
+      "iso_url": "http://releases.ubuntu.com/trusty/ubuntu-14.04.4-server-amd64.iso",
+      "shutdown_command": "echo 'vagrant'|sudo -S shutdown -P now",
+      "ssh_password": "{{ user `ssh_password` }}",
+      "ssh_username": "{{ user `ssh_username` }}",
+      "ssh_wait_timeout": "1000s",
+      "type": "virtualbox-iso",
+      "vboxmanage": [
+        [
+          "modifyvm",
+          "{{.Name}}",
+          "--memory",
+          "4096"
         ],
-        "shutdown_command": "echo 'vagrant'|sudo -S shutdown -P now",
-        "disk_size": 20000,
-        "vboxmanage": [
-            ["modifyvm", "{{.Name}}", "--memory", "4096"],
-            ["modifyvm", "{{.Name}}", "--cpus", "1"]
+        [
+          "modifyvm",
+          "{{.Name}}",
+          "--cpus",
+          "1"
         ]
-    }],
-    "provisioners": [{
-        "type": "shell",
-        "environment_vars": [
-            "UPDATE={{user `update`}}",
-            "INSTALL_VAGRANT_KEY={{user `install_vagrant_key`}}",
-            "SSH_USERNAME={{user `ssh_username`}}",
-            "SSH_PASSWORD={{user `ssh_password`}}"
-        ],
-        "execute_command": "echo 'vagrant' | {{.Vars}} sudo -E -S bash '{{.Path}}'",
-        "scripts": [
-            "scripts/update.sh",
-            "scripts/vagrant.sh",
-            "scripts/sshd.sh",
-            "scripts/minimize.sh"
-        ]
-    }, {
-        "type": "shell",
-        "execute_command": "chmod +x {{ .Path }}; {{ .Vars }} {{ .Path }}",
-        "script": "scripts/provision.sh"
-    }, {
-        "type": "shell",
-        "environment_vars": [
-            "SSH_USERNAME={{user `ssh_username`}}",
-            "SSH_PASSWORD={{user `ssh_password`}}"
-        ],
-        "execute_command": "echo 'vagrant' | {{.Vars}} sudo -E -S bash '{{.Path}}'",
-        "script": "scripts/cleanup.sh"
-    }],
-    "post-processors": [
-        [{
-            "type": "vagrant",
-            "keep_input_artifact": false
-        }, {
-            "type": "atlas",
-            "token": "{{user `atlas_token`}}",
-            "artifact": "{{user `atlas_artifact`}}",
-            "artifact_type": "vagrant.box",
-            "metadata": {
-                "created_at": "{{timestamp}}",
-                "provider": "virtualbox",
-                "version": "0.3"
-            }
-        }]
-    ],
-    "push": {
-        "name": "{{ user `atlas_artifact` }}",
-        "include": [
-            "scripts/*.sh",
-            "http/preseed.cfg"
-        ]
+      ],
+      "virtualbox_version_file": ".vbox_version",
+      "vm_name": "ubuntu1404"
     }
+  ],
+  "post-processors": [
+    [
+      {
+        "keep_input_artifact": false,
+        "type": "vagrant",
+        "output": "trifecta_{{ .Provider }}_{{ user `version` }}"
+      }
+    ]
+  ],
+  "provisioners": [
+    {
+      "environment_vars": [
+        "UPDATE={{user `update`}}",
+        "INSTALL_VAGRANT_KEY={{user `install_vagrant_key`}}",
+        "SSH_USERNAME={{user `ssh_username`}}",
+        "SSH_PASSWORD={{user `ssh_password`}}",
+        "PYTHON_VERSION={{user `python_version`}}"
+      ],
+      "execute_command": "echo {{user `ssh_password`}} | {{.Vars}} sudo -E -S bash '{{.Path}}'",
+      "scripts": [
+        "scripts/update.sh",
+        "scripts/vagrant.sh",
+        "scripts/sshd.sh",
+        "scripts/install/python.sh",
+        "scripts/install/docker.sh",
+        "scripts/install/node.sh",
+        "scripts/install/postgres.sh",
+        "scripts/install/utils.sh",
+        "scripts/minimize.sh",
+        "scripts/cleanup.sh"
+      ],
+      "type": "shell"
+    }
+  ],
+  "variables": {
+    "atlas_artifact": "yunojuno/trifecta",
+    "atlas_token": "{{ env `ATLAS_TOKEN`}}",
+    "cleanup_pause": "",
+    "custom_script": ".",
+    "headless": "",
+    "install_vagrant_key": "true",
+    "ssh_password": "{{ env `SSH_PASSWORD`}}",
+    "ssh_username": "{{ env `SSH_USERNAME`}}",
+    "python_version": "2.7.12",
+    "update": "true",
+    "version": "0.4"
+  }
 }

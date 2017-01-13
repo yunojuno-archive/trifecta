@@ -10,7 +10,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # please see the online documentation at vagrantup.com.
 
   # Every Vagrant virtual environment requires a box to build off of.
-  config.vm.box = "ubuntu/trusty64"
+  config.vm.box = "trifecta_virtualbox_0.4.box"
 
   # Configure VM Ram usage
   config.vm.provider :virtualbox do |vb|
@@ -19,7 +19,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
   # Create a private network, which allows host-only access to the machine
   # using a specific IP.
-  config.vm.network :private_network, ip: "192.168.100.100"
+  config.vm.network :private_network, ip: "192.168.100.101"
 
   # Share an additional folder to the guest VM. The first argument is
   # the path on the host to the actual folder. The second argument is
@@ -27,6 +27,6 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # argument is a set of non-required options.
   # config.vm.synced_folder "/path/to/app", "/app"
 
-  config.vm.provision :shell, privileged:false, :path => "provision/provision.sh"
+  # config.vm.provision :shell, privileged:false, :path => "provision.sh"
 
 end
