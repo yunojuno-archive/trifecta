@@ -41,3 +41,7 @@ else
     echo "<-  Certificate files already exist"
 fi
 ```
+
+The `self_signed.cert` file generated should be added to your Certificate management program and then trusted. This will stop browsers (Chrome case in point) giving the Red Screen of Denial.
+
+After the certificate generation has been completed, reboot the VM.
