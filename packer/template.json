@@ -94,6 +94,6 @@
     "ssh_username": "{{ env `SSH_USERNAME`}}",
     "python_version": "2.7.12",
     "update": "true",
-    "version": "0.4.1"
+    "version": "0.4.2"
   }
 }

@@ -6,6 +6,7 @@ apt-get install -y \
     redis-tools \
     libjpeg-dev \
     libffi-dev \
+    libfontconfig \
     htop \
     gettext \
     vim
